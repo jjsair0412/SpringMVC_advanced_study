@@ -12,7 +12,7 @@ public class ContextV1Test {
 
 
     @Test
-    void strategyV1(){
+    void strategyV1() {
         Strategy strategy = new StrategyLogic1();
         ContextV1 contextV1 = new ContextV1(strategy);
         contextV1.excute();
@@ -22,9 +22,52 @@ public class ContextV1Test {
         contextV2.excute();
     }
 
+    @Test
+    void strategyV2() {
+        // 익명내부클래스 사용
+        Strategy strategyLogic1 = new Strategy() {
+            @Override
+            public void call() {
+                log.info("비즈니스 로직 1 실행");
+            }
+        };
+        ContextV1 contextV1 = new ContextV1(strategyLogic1);
+        contextV1.excute();
+
+        Strategy strategyLogic2 = new Strategy() {
+            @Override
+            public void call() {
+                log.info("비즈니스 로직 1 실행");
+            }
+        };
+        ContextV1 contextV2 = new ContextV1(strategyLogic2);
+
+        contextV1.excute();
+        contextV2.excute();
+    }
 
     @Test
-    void strategyV0(){
+    void strategyV3() {
+        // 익명내부클래스 사용
+        ContextV1 contextV1 = new ContextV1(new Strategy() {
+            @Override
+            public void call() {
+                log.info("비즈니스 로직 1 실행");
+            }
+        });
+        contextV1.excute();
+    }
+
+    @Test
+    void strategyV4() {
+        // 람다사용
+        ContextV1 contextV1 = new ContextV1(() -> log.info("비즈니스로직1 실행"));
+        contextV1.excute();
+    }
+
+
+    @Test
+    void strategyV0() {
         logic1();
         logic2();
     }
