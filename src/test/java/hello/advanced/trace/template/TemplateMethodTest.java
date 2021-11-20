@@ -60,7 +60,6 @@ public class TemplateMethodTest {
 
 
     // 익명클래스를 사용해서 구현체를 계속만들어야하는 단점 해결
-
     /**
      * 걸과 :
      * TemplateMethodTest - 비즈니스 로직 1 실행
