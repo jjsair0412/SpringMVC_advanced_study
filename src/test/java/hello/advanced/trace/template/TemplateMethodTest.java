@@ -5,6 +5,7 @@ import hello.advanced.trace.template.code.SubClassLogic1;
 import hello.advanced.trace.template.code.SubClassLogic2;
 import org.junit.jupiter.api.Test;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.TestFactory;
 
 @Slf4j
 public class TemplateMethodTest {
@@ -57,4 +58,36 @@ public class TemplateMethodTest {
         template2.excute();
     }
 
+
+    // 익명클래스를 사용해서 구현체를 계속만들어야하는 단점 해결
+
+    /**
+     * 걸과 :
+     * TemplateMethodTest - 비즈니스 로직 1 실행
+     * AbstractTemplate - resultTime=4
+     * TemplateMethodTest - 클래스 이름 1 =class hello.advanced.trace.template.TemplateMethodTest$1
+     * TemplateMethodTest - 비즈니스 로직 2 실행
+     * AbstractTemplate - resultTime=1
+     * TemplateMethodTest - 클래스이름 2 =class hello.advanced.trace.template.TemplateMethodTest$2
+     */
+    @Test
+    void TemplateMethodV2(){
+        AbstractTemplate template = new AbstractTemplate(){
+            @Override
+            protected void call() {
+                log.info("비즈니스 로직 1 실행");
+            }
+        };
+        template.excute();
+        log.info("클래스 이름 1 ={}",template.getClass());
+
+        AbstractTemplate template2 = new AbstractTemplate(){
+            @Override
+            protected void call() {
+                log.info("비즈니스 로직 2 실행");
+            }
+        };
+        template2.excute();
+        log.info("클래스이름 2 ={}",template2.getClass());
+    }
 }
